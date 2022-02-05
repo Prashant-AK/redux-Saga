@@ -1,25 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
+import "materialize-css";
+import Navbar from "./components/Navbar";
+import SignUp from "./components/SignUp";
+import Dashboard from "./components/Dashboard";
+import { useSelector } from "react-redux";
+const App = () => {
+  const { login } = useSelector((state) => state.data);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <Navbar />
+              {!login ? <Home /> : <Dashboard />}
+            </>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <>
+              <Navbar /> {!login ? <SignUp /> : <Dashboard />}
+            </>
+          }
+        />
+
+        <Route
+          path="/dashboard"
+          element={
+            <>
+              <Navbar />
+              {!login ? <Home /> : <Dashboard />}
+            </>
+          }
+        />
+      </Routes>
     </div>
   );
-}
+};
 
 export default App;
